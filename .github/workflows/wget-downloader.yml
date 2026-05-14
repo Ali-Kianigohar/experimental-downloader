@@ -118,7 +118,9 @@ jobs:
 
           # zip
           mkdir -p ../wget
-          zip -0 -s "${{ inputs.parts_size }}m" "../wget/${SAFE_NAME}.zip" "$FILE"
+          rm -rf tmpzip
+          zip -0 -s "${{ inputs.parts_size }}m" "tmpzip/${SAFE_NAME}.zip" "$FILE"
+          mv tmpzip/* ../wget/
 
       - name: Stop WARP
         if: ${{ inputs.use_warp }}

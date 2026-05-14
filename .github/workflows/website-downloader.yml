@@ -132,7 +132,10 @@ jobs:
           OUTPUT_NAME="${{ inputs.output_name }}"
           
           # zip
-          zip -0 -r -s "${{ inputs.parts_size }}m" "${OUTPUT_NAME}.zip" ../archive_data
+          rm -rf tmpzip
+          zip -0 -r -s "${{ inputs.parts_size }}m" "tmpzip/${OUTPUT_NAME}.zip" ../archive_data
+          mv tmpzip/* ./
+          rm -rf tmpzip
           
           echo "FILE_NAME=$OUTPUT_NAME" >> $GITHUB_ENV
 
